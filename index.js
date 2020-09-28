@@ -1,8 +1,7 @@
 const axios = require("axios");
 
 const mapFromAlphaVantage = (data) => {
-  const parsed = JSON.parse(data);
-  const globalQuote = parsed["Global Quote"];
+  const globalQuote = data["Global Quote"];
   const keys = Object.keys(globalQuote);
   return {
     symbol: globalQuote[keys[0]].split(".")[0],
@@ -18,15 +17,15 @@ const mapFromAlphaVantage = (data) => {
   }
 }
 
-exports.handler = async (req, res) => {
-  console.log(req);
+exports.testGCPFn = (req, res) => {
   const code = req.query.code;
   if (!!code) {
-    const result = await axios.get(
+    return axios.get(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${code}&dataType=json&apikey=${process.env.ALPHAVANTAGE_KEY}`
-    );
-    const parsed = mapFromAlphaVantage(result);
-    return res.status(200).send(`Here's your info about ${code} -> Price: ${parsed.price} / Change: ${changeP}`);
-  }
-  return res.status(400);
+    ).then(result => {
+      const parsed = mapFromAlphaVantage(result.data);
+      res.status(200).send(`Here's your info about ${code} -> Price: ${parsed.price} / Change: ${parsed.changeP}`);
+    }).catch(console.error);
+  } 
+  return res.status(404);
 };
