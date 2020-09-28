@@ -1,0 +1,25 @@
+{
+  "name": "test-google-functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hedleygois/test-google-cloud-fn.git"
+  },
+  "author": "Hedley Luna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hedleygois/test-google-cloud-fn/issues"
+  },
+  "homepage": "https://github.com/hedleygois/test-google-cloud-fn#readme",
+  "engines": {
+    "node": ">=10.0"
+  },
+  "dependencies": {
+    "axios": "0.20.0"
+  }
+}
